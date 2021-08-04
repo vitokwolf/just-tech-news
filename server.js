@@ -3,10 +3,10 @@ const express = require('express');
 const routes = require('./controllers');
 const sequelize = require('./config/connection');
 const exphbs = require('express-handlebars');
-const hbs = exphbs.create({});
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 require('dotenv').config();
+const helpers = require('./utils/helpers');
 
 
 const app = express();
@@ -20,6 +20,7 @@ const sess = {
     db: sequelize
   })
 };
+const hbs = exphbs.create({ helpers });
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
